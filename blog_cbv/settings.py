@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps.blog.apps.BlogConfig',
     'mptt',
-    'django-mptt-admin'
+    'django_mptt_admin'
 ]
 
 MIDDLEWARE = [
