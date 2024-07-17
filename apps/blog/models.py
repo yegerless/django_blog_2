@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import FileExtensionValidator
+from django.urls import reverse
 from django.contrib.auth.models import User
 from mptt.models import MPTTModel, TreeForeignKey
 
@@ -32,8 +33,16 @@ class Post(models.Model):
         verbose_name = 'Статья'
         verbose_name_plural = 'Статьи'
 
+
     def __str__(self):
         return self.title
+    
+
+    def get_absolute_url(self):
+        """
+        Получаем прямую ссылку на статью
+        """
+        return reverse('post_detail', kwargs={'slug': self.slug}) 
 
 
 
