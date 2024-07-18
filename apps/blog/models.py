@@ -3,6 +3,7 @@ from django.core.validators import FileExtensionValidator
 from django.urls import reverse
 from django.contrib.auth.models import User
 from mptt.models import MPTTModel, TreeForeignKey
+from apps.services.utils import unique_slugify
 
 
 
@@ -42,7 +43,15 @@ class Post(models.Model):
         """
         Получаем прямую ссылку на статью
         """
-        return reverse('post_detail', kwargs={'slug': self.slug}) 
+        return reverse('post_detail', kwargs={'slug': self.slug})
+
+
+    def save(self, *args, **kwargs):
+        """
+        При сохранении генерируем слаг и проверяем его на уникальность
+        """     
+        self.slug = unique_slugify(self, self.title, self.slug)
+        super().save(*args, **kwargs)
 
 
 
